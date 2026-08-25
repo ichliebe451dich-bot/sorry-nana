@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>For Nana ♡</title>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            overflow: hidden;
+            font-family: "Poppins", Arial, sans-serif;
+            background: #ffffff;
+        }
+
+        /* =========================
+           HALAMAN AWAL
+        ========================= */
+
+        #opening {
+            position: fixed;
+            inset: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            background: white;
+
+            opacity: 1;
+            transition: opacity 1.2s ease;
+            z-index: 10;
+        }
+
+        #gambar2 {
+            width: min(70vw, 330px);
+            aspect-ratio: 1 / 1;
+
+            object-fit: cover;
+
+            cursor: pointer;
+
+            border-radius: 18px;
+
+            transition:
+                transform 0.3s ease,
+                box-shadow 0.3s ease;
+        }
+
+        #gambar2:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        #gambar2:active {
+            transform: scale(0.96);
+        }
+
+        /* =========================
+           HALAMAN PESAN
+        ========================= */
+
+        #content {
+            min-height: 100vh;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            padding-top: 10vh;
+            padding-left: 25px;
+            padding-right: 25px;
+            padding-bottom: 30px;
+
+            background: #d8b4fe;
+
+            opacity: 0;
+
+            transition: opacity 1.5s ease;
+
+            overflow-y: auto;
+        }
+
+        #gambar {
+            width: min(62vw, 280px);
+            aspect-ratio: 1 / 1;
+
+            object-fit: cover;
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 12px 35px rgba(70, 35, 100, 0.20);
+
+            margin-bottom: 30px;
+
+            transform: translateY(-15px);
+
+            opacity: 0;
+
+            transition:
+                opacity 1.2s ease,
+                transform 1.2s ease;
+        }
+
+        #message {
+            width: min(90vw, 600px);
+
+            color: #4b275f;
+
+            text-align: center;
+
+            font-size: 16px;
+            line-height: 1.8;
+            font-weight: 500;
+
+            opacity: 0;
+
+            transform: translateY(20px);
+
+            transition:
+                opacity 1.3s ease 0.4s,
+                transform 1.3s ease 0.4s;
+        }
+
+        #content.show #gambar {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #content.show #message {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* =========================
+           RESPONSIVE HP
+        ========================= */
+
+        @media (max-width: 500px) {
+            #content {
+                padding-top: 8vh;
+            }
+
+            #gambar {
+                width: min(65vw, 250px);
+                margin-bottom: 25px;
+            }
+
+            #message {
+                font-size: 14px;
+                line-height: 1.75;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- HALAMAN PEMBUKA -->
+    <section id="opening">
+
+        <img
+            id="gambar2"
+            src="gambar2.png"
+            alt="Klik gambar"
+        >
+
+    </section>
+
+
+    <!-- HALAMAN PESAN -->
+    <main id="content">
+
+        <img
+            id="gambar"
+            src="gambar.png"
+            alt="Nana"
+        >
+
+        <p id="message">
+            nana sayangku, aku maaf ya karena uda bikin kamu feeling lonely,
+            aku merasa bersalah, ill do my best buat ngga ngulangin kesalahan
+            itu lagi sayang, kalo aku ada buat salah/bikin kamu ngga nyaman
+            jangan ragu buat negur aku yaa sayangg, i love u so much sayang,
+            always, now n forever.
+            <br><br>
+            —love, radit.
+        </p>
+
+    </main>
+
+
+    <!-- LAGU -->
+    <audio id="music" src="lagu.mp3" loop></audio>
+
+
+    <script>
+
+        const opening = document.getElementById("opening");
+        const content = document.getElementById("content");
+        const gambar2 = document.getElementById("gambar2");
+        const music = document.getElementById("music");
+
+        gambar2.addEventListener("click", function () {
+
+            /*
+             * Browser biasanya mengizinkan audio
+             * karena ini dipicu langsung oleh klik user.
+             */
+            music.play().catch(error => {
+                console.log("Audio tidak dapat diputar:", error);
+            });
+
+            // Fade out halaman pembuka
+            opening.style.opacity = "0";
+
+            // Setelah fade selesai, sembunyikan opening
+            setTimeout(() => {
+
+                opening.style.display = "none";
+
+                // Tampilkan halaman ungu
+                content.style.opacity = "1";
+
+                // Jalankan animasi gambar + tulisan
+                setTimeout(() => {
+                    content.classList.add("show");
+                }, 100);
+
+            }, 1200);
+
+        });
+
+    </script>
+
+</body>
+</html>
